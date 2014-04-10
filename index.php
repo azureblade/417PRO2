@@ -27,7 +27,7 @@ $items = R::findAll('item',"1 order by name asc");
 <div class="content"><!-- content -->
 
 <h2>Store Items</h2>
-
+<div class="scroll">
 <table>
   <tr>
     <th>name</th>
@@ -44,7 +44,7 @@ $items = R::findAll('item',"1 order by name asc");
     </tr>
   <?php endforeach ?>
 </table>
-
+</div>
 </div><!-- content -->
 </div><!-- container -->
 

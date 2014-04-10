@@ -3,3 +3,8 @@ td, th {
   text-align: left;
   padding: 2px 5px;
 }
+
+tr {
+	max-height: 50px;
+	overflow: scroll;
+}

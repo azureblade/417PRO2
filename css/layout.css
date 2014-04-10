@@ -112,4 +112,9 @@ body {
     vertical-align: top;
     width: 50%;
   }
+
+.scroll{
+  height: 500px;
+  overflow: auto;
+}
 }
