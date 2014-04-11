@@ -9,7 +9,7 @@ $items = R::findAll('item',"1 order by name asc");
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script src="sorttable.js"></script>
+<script src="js/sorttable.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -32,26 +32,6 @@ $items = R::findAll('item',"1 order by name asc");
 
 <table class="sortable">
  <thead>
-  <th>Name</th>
-  <th>Age</th>
- </thead>
- <tbody>
-  <tr>
-    <td>Matt</td>
-    <td>21</td> 
-  </tr>
-<tr>
-  <td>Alex</td>
-  <td>14</td> 
-</tr>
-<tr>
-  <td>Zack</td>
-  <td>20</td> 
-</tr>
- </tbody>
- </table>
- <!-- 
- <thead>
     <tr>
     <th>name</th>
     <th>category</th>
@@ -70,7 +50,7 @@ $items = R::findAll('item',"1 order by name asc");
     <?php endforeach ?>
   </tbody>
 </table>
--->
+
 </div>
 </div><!-- content -->
 </div><!-- container -->
