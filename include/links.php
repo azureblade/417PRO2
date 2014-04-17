@@ -17,3 +17,8 @@ $session = new Session();
 <?php endif ?>
 </li>
 <li><a href="help.php">Help</a></li>
+<?php if(isset($session->user)): ?>
+	<li>
+<a href = "myOrders">My Orders</a>
+</li>
+<?php endif ?>

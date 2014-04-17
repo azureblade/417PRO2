@@ -3,7 +3,6 @@ session_start();
 require_once "include/DB.php";
 DB::init();
 if(empty($_SESSION['cart']))
-$_SESSION['cart'] = array();
 $items = R::findAll('item',"1 order by name asc");
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 

@@ -6,7 +6,6 @@ $session = new Session();
 
 $orders = R::findall('order', "1 order by created_at asc")
 
-
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
 "http://www.w3.org/TR/html4/loose.dtd">
@@ -71,11 +70,25 @@ $orders = R::findall('order', "1 order by created_at asc")
 <tbody>
 	<?php foreach ($orders as $order): ?>
 <tr>
+
 <td><a href="showOrder.php?order_id=<?php echo $order->id ?>">
 <?php echo htmlspecialchars($order->user_id) ?></a>
 </td>
-<td></td>
-<td><?php echo date_format($order->created_at, "Y/m/d") ?></td>
+
+<td><?php 
+$user_id   = $session->order->user_id;
+$user = R::findOne('user', 'id=?', array($order->user_id));
+echo $user->name;
+ ?>
+</td>
+
+<td>
+<?php $date = new DateTime();
+$date->setTimestamp($order->created_at);
+echo $date->format('Y-m-d H:i:s');
+ ?>
+</td>
+
 </tr>
 <?php endforeach ?>
 </tbody>
