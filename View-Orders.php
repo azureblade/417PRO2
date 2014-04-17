@@ -4,7 +4,13 @@ require_once "include/DB.php";
 DB::init();
 $session = new Session();
 
+$params = (object) $_REQUEST;
+
 $orders = R::findall('order', "1 order by created_at asc")
+
+//if(isset($params->remove)){
+//  unset($session->order[$params->remID]);
+//}
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
@@ -66,6 +72,9 @@ $orders = R::findall('order', "1 order by created_at asc")
 			<td>Name</td>
 			<td>Email</td>
 			<td>Time</td>
+			<?php if($session->user->level == 1): ?>
+			<td></td>
+		<?php endif ?>
 		</tr>
 	</thead>
 <tbody>
@@ -73,7 +82,7 @@ $orders = R::findall('order', "1 order by created_at asc")
 <tr>
 
 <td><a href="showOrder.php?order_id=<?php echo $order->id ?>">
-<?php echo htmlspecialchars($order->user_id) ?></a>
+<?php echo htmlspecialchars($order->id) ?></a>
 </td>
 
 <td><?php 
@@ -95,6 +104,10 @@ $date->setTimestamp($order->created_at);
 echo $date->format('Y-m-d H:i:s');
  ?>
 </td>
+
+<td><input type="submit" name="remove" value="Remove" />
+            <input type="hidden" name="remID" value="<?php echo $order->id ?>" /></td>
+
 
 </tr>
 <?php endforeach ?>

@@ -20,6 +20,21 @@ if(isset($params->modify)){
 
 }
 
+if(isset($params->order)){
+   $order = R::dispense('order');
+      $order->user_id = $session->user->id;
+      $order->created_at = time();
+      $id = R::store($order);
+
+       foreach ($session->cart as $key => $value) {
+                $item = R::load('item', $key);
+                $order->link('item_order', array('quantity' => $value, 'price' => $item->price))->item = $item;
+                R::store($order);
+            }
+
+    unset($session->cart);
+}
+
 if(isset($session->cart)) {
   $cart = $session->cart;
 }
@@ -89,7 +104,9 @@ $message = "There was an error: </li>"
 
 <br>
 <br>
+<?php if($session->user != null): ?>
 <input type="submit" id="order" name="order" value="Submit Order">
+<?php endif ?>
 </form>
 </div>
 </div><!-- content -->

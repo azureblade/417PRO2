@@ -52,6 +52,11 @@ $items = R::findAll('item',"1 order by name asc");
 </table>
 
 </div>
+
+<?php if($session->user->level == 1): ?>
+<input type="submit" id="add" name="add" value="Add New Item" />
+<?php endif ?>
+
 </div><!-- content -->
 </div><!-- container -->
 
