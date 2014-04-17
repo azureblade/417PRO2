@@ -25,8 +25,7 @@ session_start();
 
 <h2>Help</h2>
 
-Anything that can help the untrained user to properly
-use your application.
+To sort Items, click the header.
 
 </div><!-- content -->
 </div><!-- container -->

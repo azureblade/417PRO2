@@ -1,13 +1,43 @@
 <?php
 require_once "include/Session.php";
-$session = new Session();
-
 require_once "include/DB.php";
 DB::init();
+$session = new Session();
+
+if(!isset($session->cart)){
+  $session->cart = array();
+}
 
 $params = (object) $_REQUEST;
-
+$id = $params->item_id;
+if (isset($params->quantity)) {
+  $session->cart[$id] = $params->quantity;
+}
+else {
+$quantity = "";
+}
 $item = R::load('item',$params->item_id);
+
+$error = false;
+$message = "There was an error: </li>";
+
+
+
+
+if($_SERVER["REQUEST_METHOD"] === "POST") {
+  $pro_id = $params->id;
+  $quantity = trim($params->quantity);
+
+  if(!is_integer($quantity)) {
+    $error = true;
+    $message .= "<li>Quantity must be a whole number</li>";
+  }
+  else {
+    $session->cart[$pro_id] =$quantity;
+    header("location: cart.php");
+  }
+
+}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
 "http://www.w3.org/TR/html4/loose.dtd">
@@ -70,17 +100,27 @@ $item = R::load('item',$params->item_id);
 </table>
 </div>
 
+
+
+
+
+
 <div class="block item-cart">
-  <form action="somewhere.php">
-    <b>Say Something</b>
+  <form method="post" action="">
+    <b>Add to Cart</b>
     <br />
     <input type="hidden" name="id" value="<?php echo $item->id ?>" />
     quantity:
-    <input type="text" size="5" name="quantity" value="???" />
+    <input type="text" size="5" name="quantity" placeholder="0" value="<?=$quantity?>"/> 
     <br />
-    <button name="doit">DoIt</button>
+    <input type="submit" name="button" value="Submit"></button>
   </form>
 </div>
+
+
+
+
+
 
 <br />
 <div class="block item-descrip">
@@ -101,8 +141,7 @@ $item = R::load('item',$params->item_id);
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="js/superfish.min.js"></script>
 <script type="text/javascript" src="js/init.js"></script>
-<script type="text/javascript">
-</script>
+<script type="text/javascript"></script>
 
 </body>
 </html>

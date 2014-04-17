@@ -124,4 +124,7 @@ table.sortable thead {
     font-weight: bold;
     cursor: default;
 }
+table.sortable td{
+  text-align: center;
+}
 }
