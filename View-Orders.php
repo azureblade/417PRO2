@@ -62,8 +62,9 @@ $orders = R::findall('order', "1 order by created_at asc")
 <table class="sortable">
 	<thead>
 		<tr>
-			<td>Name</td>
 			<td>Order</td>
+			<td>Name</td>
+			<td>Email</td>
 			<td>Time</td>
 		</tr>
 	</thead>
@@ -79,6 +80,12 @@ $orders = R::findall('order', "1 order by created_at asc")
 $user_id   = $session->order->user_id;
 $user = R::findOne('user', 'id=?', array($order->user_id));
 echo $user->name;
+ ?>
+</td>
+
+<td>
+<?php $email = R::findOne('user', 'id=?', array($order->user_id));
+echo $email->email;
  ?>
 </td>
 
