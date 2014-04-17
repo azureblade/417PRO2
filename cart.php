@@ -6,19 +6,22 @@ DB::init();
 
 $params = (object) $_REQUEST;
 
+$total = 0;
+
 if(isset($params->clear)){
   unset($session->cart);
 }
 
-elseif(isset($params->remove)){
-  unset($session->cart[$params->'data-id']);
+if(isset($params->remove)){
+  unset($session->cart[$params->remID]);
 }
 
-elseif(isset($session->cart)) {
-  $cart = $session->cart;
+if(isset($params->modify)){
+
 }
-else{
-  $i=1;
+
+if(isset($session->cart)) {
+  $cart = $session->cart;
 }
 $error = false;
 $message = "There was an error: </li>"
@@ -55,6 +58,7 @@ $message = "There was an error: </li>"
     <th>price</th>
     <th>quantity</th>
     <th></th>
+    <th></th>
   </tr>
 </thead>
   <tbody>
@@ -62,19 +66,29 @@ $message = "There was an error: </li>"
     <?php foreach ($cart as $id => $quantity):  ?>
     <?php $item = R::load('item', $id); ?>
       <tr>
-        <td><?php echo htmlspecialchars($item->name) ?></td>
+        <td><?php echo htmlspecialchars($item->name) ?></td> 
         <td>$<?php echo number_format($item->price,2) ?></td>
-        <td><?php echo $quantity ?></td> {center-aligned}
-        <td><input data-id="<?php echo $id ?>" type="submit" name="remove" value="Remove" /></td>
+        <td><?php echo $quantity ?></td> 
+        <td><input type="submit" name="remove" value="Remove" />
+            <input type="hidden" name="remID" value="<?php echo $id ?>" /></td>
+        <td><input type="submit" name="modify" value="Modify" /></td>
+        <?php $total += ($item->price * $quantity); ?>
       </tr>
       <?php $i++ ?>
     <?php endforeach ?>
   <?php endif ?>
   </tbody>
+  <tfoot>
+    <tr><td>TOTAL</td><td>$<?php echo number_format($total,2) ?></td></tr>
+  </tfoot>
 </table>
 <div>
 <input type="submit" id="clear" name="clear" value="Clear Cart" />
 <br>
+
+<br>
+<br>
+<input type="submit" id="order" name="order" value="Submit Order">
 </form>
 </div>
 </div><!-- content -->

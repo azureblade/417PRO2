@@ -7,6 +7,8 @@ $session = new Session();
 <li>
 <?php if (!isset($session->user)): ?>
   <a href="login.php">Login</a>
+<?php elseif($session->user->level == 1): ?>
+  <a href="View-Orders">View Orders</a>
 <?php else: ?>
   <a href="logout.php">Logout</a>
 <?php endif ?>
