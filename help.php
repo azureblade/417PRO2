@@ -26,6 +26,8 @@ session_start();
 <h2>Help</h2>
 
 To sort Items, click the header.
+<br>
+Most of the features probably won't work. I have never touched PHP before this, and learning a new language within a few weeks is apparently beyond me.
 
 </div><!-- content -->
 </div><!-- container -->

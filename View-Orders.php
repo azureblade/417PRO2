@@ -1,16 +1,21 @@
 <?php
 require_once "include/Session.php";
+$session = new Session();
 require_once "include/DB.php";
 DB::init();
-$session = new Session();
+
 
 $params = (object) $_REQUEST;
 
-$orders = R::findall('order', "1 order by created_at asc")
+if(isset($params->delete)){
+ 	if(isset($_POST['delete_row'])) {
+  $id = $_POST['id_to_be_deleted'];
+  if(!mysqli_query($connection, "DELETE FROM order WHERE id = $id")) {
+    echo mysqli_error($connection);
+  }
+}
 
-//if(isset($params->remove)){
-//  unset($session->order[$params->remID]);
-//}
+$orders = R::findall('order', "1 order by created_at asc")
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
@@ -64,7 +69,7 @@ $orders = R::findall('order', "1 order by created_at asc")
 <div class="content"><!-- content -->
 
 <h2>Orders</h2>
-
+<form method="post">
 <table class="sortable">
 	<thead>
 		<tr>
@@ -81,8 +86,7 @@ $orders = R::findall('order', "1 order by created_at asc")
 	<?php foreach ($orders as $order): ?>
 <tr>
 
-<td><a href="showOrder.php?order_id=<?php echo $order->id ?>">
-<?php echo htmlspecialchars($order->id) ?></a>
+<td><?php echo htmlspecialchars($order->id) ?>
 </td>
 
 <td><?php 
@@ -105,15 +109,15 @@ echo $date->format('Y-m-d H:i:s');
  ?>
 </td>
 
-<td><input type="submit" name="remove" value="Remove" />
-            <input type="hidden" name="remID" value="<?php echo $order->id ?>" /></td>
+<td><input type="hidden" name="id_to_be_deleted" value="<?php echo $id; ?>" />
+   <input type="submit" name="delete_row" /></td>
 
 
 </tr>
 <?php endforeach ?>
 </tbody>
 </table>
-
+</form>
 
 </div><!-- content -->
 </div><!-- container -->
@@ -121,7 +125,13 @@ echo $date->format('Y-m-d H:i:s');
 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="js/superfish.min.js"></script>
 <script type="text/javascript" src="js/init.js"></script>
-<script type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#delete').click(function(){
+    return confirm("Are you sure?");
+  });
+});
+</script>
 
 </body>
 </html>

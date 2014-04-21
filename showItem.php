@@ -113,7 +113,9 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
     quantity:
     <input type="text" size="5" name="quantity" placeholder="0" value="<?=$quantity?>"/> 
     <br />
+    <?php if($quantity >= 0): ?>
     <input type="submit" name="button" value="Submit"></button>
+  <?php endif ?>
   </form>
 </div>
 

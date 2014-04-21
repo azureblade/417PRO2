@@ -3,7 +3,15 @@ session_start();
 require_once "include/DB.php";
 DB::init();
 if(empty($_SESSION['cart']))
+
+$params= (object) $_REQUEST;  
+
+if(isset($params->add)){
+  header("location: add.php");
+}
+
 $items = R::findAll('item',"1 order by name asc");
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
 "http://www.w3.org/TR/html4/loose.dtd">
@@ -54,7 +62,8 @@ $items = R::findAll('item',"1 order by name asc");
 </div>
 
 <?php if($session->user->level == 1): ?>
-<input type="submit" id="add" name="add" value="Add New Item" />
+  
+<input type="submit" id="add" name="add" value="Add New Item"><a href="add.php">Add New Item</a> </input>
 <?php endif ?>
 
 </div><!-- content -->

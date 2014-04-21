@@ -81,7 +81,7 @@ if (isset($params->delete)) {
 </tbody>
         </table>
         <div>
-            Order Total: $<?=$total?>
+            Total: $<?=$total?>
         </div>
     </div>
     <?php }  ?>
